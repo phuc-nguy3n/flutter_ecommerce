@@ -1,5 +1,10 @@
+import 'package:e_commerce/common/helper/navigator/app_navigator.dart';
+import 'package:e_commerce/common/widgets/appbar/app_bar.dart';
 import 'package:e_commerce/common/widgets/button/basic_app_button.dart';
+import 'package:e_commerce/presentation/auth/pages/enter_password.dart';
+import 'package:e_commerce/presentation/auth/pages/signup.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
 
 class SigninPage extends StatelessWidget {
   const SigninPage({super.key});
@@ -7,8 +12,9 @@ class SigninPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: BasicAppbar(hideBack: true),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 80),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 40),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -16,7 +22,7 @@ class SigninPage extends StatelessWidget {
             const SizedBox(height: 20),
             _emailTextField(context),
             const SizedBox(height: 20),
-            _continueButton(),
+            _continueButton(context),
             const SizedBox(height: 20),
             _createAccount((context)),
           ],
@@ -41,9 +47,11 @@ class SigninPage extends StatelessWidget {
     );
   }
 
-  Widget _continueButton() {
+  Widget _continueButton(BuildContext context) {
     return BasicAppButton(
-      onPressed: () {},
+      onPressed: () {
+        AppNavigator.push(context, EnterPasswordPage());
+      },
       title: 'Continue',
       height: 50,
       width: double.infinity,
@@ -59,8 +67,12 @@ class SigninPage extends StatelessWidget {
             style: TextStyle(color: Colors.white),
           ),
           TextSpan(
-            text: 'Create one',
-
+            text: 'Sign Up',
+            recognizer:
+                TapGestureRecognizer()
+                  ..onTap = () {
+                    AppNavigator.push(context, SignupPage());
+                  },
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               color: Colors.white,
