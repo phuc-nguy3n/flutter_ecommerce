@@ -4,7 +4,20 @@ import 'package:e_commerce/presentation/splash/pages/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    debugPrint('✅ Firebase khởi tạo thành công!');
+  } catch (e) {
+    debugPrint('❌ Lỗi khi khởi tạo Firebase: $e');
+  }
+
   runApp(const MainApp());
 }
 
