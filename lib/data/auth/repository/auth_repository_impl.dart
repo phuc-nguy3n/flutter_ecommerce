@@ -15,3 +15,7 @@ class AuthRepositoryImpl extends AuthRepository {
     return await sl<AuthFirebaseService>().getAges();
   }
 }
+
+// Repository trong folder data
+// Chứa class implement (cài đặt thật sự)
+//  Gọi API, đọc Firebase, SQLite, v.v.

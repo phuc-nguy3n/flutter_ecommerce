@@ -11,4 +11,4 @@ abstract class AuthRepository {
 // Chứa class abstract (khai báo)
 // Chỉ định các phương thức mà repository cần phải có
 // Không quan tâm data đến từ đâu
-// Được các UseCase sử dụng
+// Được các UseCase sử dụng 
