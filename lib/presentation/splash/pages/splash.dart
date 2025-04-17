@@ -1,4 +1,4 @@
-import 'package:e_commerce/core/assets/app_vectors.dart';
+import 'package:e_commerce/core/configs/assets/app_vectors.dart';
 import 'package:e_commerce/core/configs/theme/app_colors.dart';
 import 'package:e_commerce/presentation/auth/pages/signin.dart';
 import 'package:e_commerce/presentation/splash/bloc/splash_cubit.dart';
