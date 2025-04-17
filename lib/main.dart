@@ -1,6 +1,7 @@
 import 'package:e_commerce/core/configs/theme/app_theme.dart';
 import 'package:e_commerce/presentation/splash/bloc/splash_cubit.dart';
 import 'package:e_commerce/presentation/splash/pages/splash.dart';
+import 'package:e_commerce/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,7 +18,7 @@ Future<void> main() async {
   } catch (e) {
     debugPrint('❌ Lỗi khi khởi tạo Firebase: $e');
   }
-
+  await initializeDependencies();
   runApp(const MainApp());
 }
 
