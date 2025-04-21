@@ -19,7 +19,6 @@ class GenderAndAgeSelectionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('UserCreationReq: ${userCreationReq.toString()}');
     return Scaffold(
       appBar: const BasicAppbar(),
       body: MultiBlocProvider(
