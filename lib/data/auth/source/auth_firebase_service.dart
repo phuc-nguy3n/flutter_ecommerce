@@ -9,6 +9,7 @@ abstract class AuthFirebaseService {
   Future<Either> getAges();
   Future<Either> signin(UserSigninReq user);
   Future<Either> sendPasswordResetEmail(String email);
+  Future<Either> getUser();
 }
 
 class AuthFirebaseServiceImpl extends AuthFirebaseService {
@@ -86,6 +87,21 @@ class AuthFirebaseServiceImpl extends AuthFirebaseService {
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
       return const Right('Password reset email is sent');
+    } catch (e) {
+      return const Left('Please try again');
+    }
+  }
+
+  @override
+  Future<Either> getUser() async {
+    try {
+      var currentUser = FirebaseAuth.instance.currentUser;
+      var userData = await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(currentUser?.uid)
+          .get()
+          .then((value) => value.data());
+      return Right(userData);
     } catch (e) {
       return const Left('Please try again');
     }
