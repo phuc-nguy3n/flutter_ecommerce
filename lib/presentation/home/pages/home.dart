@@ -1,6 +1,7 @@
 import 'package:e_commerce/presentation/home/widget/categories.dart';
 import 'package:e_commerce/presentation/home/widget/header.dart';
 import 'package:e_commerce/presentation/home/widget/search_field.dart';
+import 'package:e_commerce/presentation/home/widget/top_selling.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -17,6 +18,8 @@ class HomePage extends StatelessWidget {
             SearchField(),
             SizedBox(height: 24),
             Categories(),
+            SizedBox(height: 24),
+            TopSelling(),
           ],
         ),
       ),
