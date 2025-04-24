@@ -23,6 +23,7 @@ class HomePage extends StatelessWidget {
             TopSelling(),
             SizedBox(height: 24),
             NewIn(),
+            SizedBox(height: 24),
           ],
         ),
       ),
