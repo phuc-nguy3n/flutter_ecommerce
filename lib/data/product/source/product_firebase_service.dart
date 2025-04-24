@@ -59,6 +59,20 @@ class ProductFirebaseServiceImpl extends ProductFirebaseService {
   }
 
   @override
+  Future<Either> getProductsByTitle(String title) async {
+    try {
+      var returnedData =
+          await FirebaseFirestore.instance
+              .collection('Products')
+              .where('title', isGreaterThanOrEqualTo: title)
+              .get();
+      return Right(returnedData.docs.map((e) => e.data()).toList());
+    } catch (e) {
+      return const Left('Please try again');
+    }
+  }
+
+  @override
   Future<Either> addOrRemoveFavoriteProduct(ProductEntity product) {
     // TODO: implement addOrRemoveFavoriteProduct
     throw UnimplementedError();
@@ -67,12 +81,6 @@ class ProductFirebaseServiceImpl extends ProductFirebaseService {
   @override
   Future<Either> getFavoritesProducts() {
     // TODO: implement getFavoritesProducts
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Either> getProductsByTitle(String title) {
-    // TODO: implement getProductsByTitle
     throw UnimplementedError();
   }
 

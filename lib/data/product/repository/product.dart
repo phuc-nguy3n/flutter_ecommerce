@@ -59,6 +59,25 @@ class ProductRepositoryImpl extends ProductRepository {
   }
 
   @override
+  Future<Either> getProductsByTitle(String title) async {
+    var returnedData = await sl<ProductFirebaseService>().getProductsByTitle(
+      title,
+    );
+    return returnedData.fold(
+      (error) {
+        return Left(error);
+      },
+      (data) {
+        return Right(
+          List.from(
+            data,
+          ).map((e) => ProductModel.fromMap(e).toEntity()).toList(),
+        );
+      },
+    );
+  }
+
+  @override
   Future<Either> addOrRemoveFavoriteProduct(ProductEntity product) {
     // TODO: implement addOrRemoveFavoriteProduct
     throw UnimplementedError();
@@ -67,12 +86,6 @@ class ProductRepositoryImpl extends ProductRepository {
   @override
   Future<Either> getFavoritesProducts() {
     // TODO: implement getFavoritesProducts
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Either> getProductsByTitle(String title) {
-    // TODO: implement getProductsByTitle
     throw UnimplementedError();
   }
 

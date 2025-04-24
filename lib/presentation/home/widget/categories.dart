@@ -1,6 +1,7 @@
 import 'package:e_commerce/common/bloc/categories/categories_display_cubit.dart';
 import 'package:e_commerce/common/helper/navigator/app_navigator.dart';
 import 'package:e_commerce/presentation/all_categories/pages/all_categories.dart';
+import 'package:e_commerce/presentation/category_products/pages/category_products.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -64,30 +65,38 @@ class Categories extends StatelessWidget {
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        itemBuilder: (contetx, index) {
-          return Column(
-            children: [
-              Container(
-                height: 60,
-                width: 60,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white,
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(categories[index].image),
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () {
+              AppNavigator.push(
+                context,
+                CategoryProductsPage(categoryEntity: categories[index]),
+              );
+            },
+            child: Column(
+              children: [
+                Container(
+                  height: 60,
+                  width: 60,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white,
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(categories[index].image),
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                categories[index].title,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 14,
+                const SizedBox(height: 10),
+                Text(
+                  categories[index].title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           );
         },
         separatorBuilder: (context, index) => const SizedBox(width: 15),
