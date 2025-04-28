@@ -1,7 +1,9 @@
+import 'package:e_commerce/common/helper/navigator/app_navigator.dart';
 import 'package:e_commerce/core/configs/assets/app_images.dart';
 import 'package:e_commerce/core/configs/assets/app_vectors.dart';
 import 'package:e_commerce/core/configs/theme/app_colors.dart';
 import 'package:e_commerce/domain/auth/entity/user.dart';
+import 'package:e_commerce/presentation/cart/pages/cart.dart';
 import 'package:e_commerce/presentation/home/bloc/user_info_display_cubit.dart';
 import 'package:e_commerce/presentation/home/bloc/user_info_display_state.dart';
 import 'package:flutter/material.dart';
@@ -81,7 +83,7 @@ class Header extends StatelessWidget {
   Widget _card(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // AppNavigator.push(context,const CartPage());
+        AppNavigator.push(context, const CartPage());
       },
       child: Container(
         height: 40,
