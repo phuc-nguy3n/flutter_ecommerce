@@ -1,7 +1,9 @@
 import 'package:e_commerce/common/helper/cart/cart.dart';
+import 'package:e_commerce/common/helper/navigator/app_navigator.dart';
 import 'package:e_commerce/common/widgets/button/basic_app_button.dart';
 import 'package:e_commerce/core/configs/theme/app_colors.dart';
 import 'package:e_commerce/domain/order/entities/product_ordered.dart';
+import 'package:e_commerce/presentation/cart/pages/checkout.dart';
 import 'package:flutter/material.dart';
 
 class Checkout extends StatelessWidget {
@@ -74,7 +76,7 @@ class Checkout extends StatelessWidget {
           ),
           BasicAppButton(
             onPressed: () {
-              // AppNavigator.push(context, CheckOutPage(products: products,));
+              AppNavigator.push(context, CheckOutPage(products: products));
             },
             title: 'Checkout',
           ),

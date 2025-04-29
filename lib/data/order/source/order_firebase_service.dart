@@ -1,13 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:e_commerce/data/order/models/add_to_cart_req.dart';
+import 'package:e_commerce/data/order/models/order_registration_req.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class OrderFirebaseService {
   Future<Either> addToCart(AddToCartReq addToCartReq);
   Future<Either> getCartProducts();
   Future<Either> removeCartProduct(String id);
-  // Future<Either> orderRegistration(OrderRegistrationReq order);
+  Future<Either> orderRegistration(OrderRegistrationReq order);
   // Future<Either> getOrders();
 }
 
@@ -74,29 +75,38 @@ class OrderFirebaseServiceImpl extends OrderFirebaseService {
   Future<Either> removeCartProduct(String id) async {
     try {
       var user = FirebaseAuth.instance.currentUser;
-      var cartRef = FirebaseFirestore.instance
+      await FirebaseFirestore.instance
           .collection('Users')
           .doc(user!.uid)
           .collection('Cart')
-          .doc(id);
+          .doc(id)
+          .delete();
+      return const Right('Product removed successfully');
+    } catch (e) {
+      return const Left('Please try again');
+    }
+  }
 
-      var docSnapshot = await cartRef.get();
+  @override
+  Future<Either> orderRegistration(OrderRegistrationReq order) async {
+    try {
+      var user = FirebaseAuth.instance.currentUser;
+      await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(user!.uid)
+          .collection('Orders')
+          .add(order.toMap());
 
-      if (docSnapshot.exists) {
-        int currentQuantity = docSnapshot.data()?['productQuantity'] ?? 0;
-
-        if (currentQuantity > 1) {
-          // Giảm productQuantity đi 1
-          await cartRef.update({'productQuantity': currentQuantity - 1});
-        } else {
-          // Nếu chỉ còn 1 sản phẩm thì xóa luôn document
-          await cartRef.delete();
-        }
-
-        return const Right('Product updated successfully');
-      } else {
-        return const Left('Product not found');
+      for (var item in order.products) {
+        await FirebaseFirestore.instance
+            .collection('Users')
+            .doc(user.uid)
+            .collection('Cart')
+            .doc(item.id)
+            .delete();
       }
+
+      return const Right('Order registered successfully');
     } catch (e) {
       return const Left('Please try again');
     }
