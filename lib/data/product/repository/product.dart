@@ -78,20 +78,39 @@ class ProductRepositoryImpl extends ProductRepository {
   }
 
   @override
-  Future<Either> addOrRemoveFavoriteProduct(ProductEntity product) {
-    // TODO: implement addOrRemoveFavoriteProduct
-    throw UnimplementedError();
+  Future<Either> addOrRemoveFavoriteProduct(ProductEntity product) async {
+    var returnedData = await sl<ProductFirebaseService>()
+        .addOrRemoveFavoriteProduct(product);
+    return returnedData.fold(
+      (error) {
+        return Left(error);
+      },
+      (data) {
+        return Right(data);
+      },
+    );
   }
 
   @override
-  Future<Either> getFavoritesProducts() {
-    // TODO: implement getFavoritesProducts
-    throw UnimplementedError();
+  Future<bool> isFavorite(String productId) async {
+    return await sl<ProductFirebaseService>().isFavorite(productId);
   }
 
   @override
-  Future<bool> isFavorite(String productId) {
-    // TODO: implement isFavorite
-    throw UnimplementedError();
+  Future<Either> getFavoritesProducts() async {
+    var returnedData =
+        await sl<ProductFirebaseService>().getFavoritesProducts();
+    return returnedData.fold(
+      (error) {
+        return Left(error);
+      },
+      (data) {
+        return Right(
+          List.from(
+            data,
+          ).map((e) => ProductModel.fromMap(e).toEntity()).toList(),
+        );
+      },
+    );
   }
 }
