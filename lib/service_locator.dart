@@ -18,6 +18,7 @@ import 'package:e_commerce/domain/category/usecases/get_categories.dart';
 import 'package:e_commerce/domain/order/repository/order.dart';
 import 'package:e_commerce/domain/order/usecases/add_to_cart.dart';
 import 'package:e_commerce/domain/order/usecases/get_cart_products.dart';
+import 'package:e_commerce/domain/order/usecases/get_orders.dart';
 import 'package:e_commerce/domain/order/usecases/order_registration.dart';
 import 'package:e_commerce/domain/order/usecases/remove_cart_product.dart';
 import 'package:e_commerce/domain/product/repository/product.dart';
@@ -95,4 +96,6 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<GetFavortiesProductsUseCase>(
     GetFavortiesProductsUseCase(),
   );
+
+  sl.registerSingleton<GetOrdersUseCase>(GetOrdersUseCase());
 }
